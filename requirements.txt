@@ -1,0 +1,17 @@
+Django>=5.2.4
+mysqlclient
+weasyprint
+Pillow
+fonttools
+asgiref
+sqlparse
+tzdata
+cssselect2
+tinycss2
+tinyhtml5
+pyphen
+pydyf
+cffi
+brotli
+webencodings
+zopfli
