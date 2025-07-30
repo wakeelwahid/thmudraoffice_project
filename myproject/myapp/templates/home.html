@@ -1,0 +1,234 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="form-container">
+  <div class="form-heading">
+    <h1>Credit Bin</h1>
+    <p>Fill the form below to calculate your EMI</p>
+    <div
+      style="
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-top: 40px;
+      "
+    >
+      <a
+        href="{% url 'approvalletter' %}"
+        class="btn"
+        style="text-decoration: none"
+        >Approval Letter List</a
+      >
+    </div>
+  </div>
+
+  {% if messages %} {% for message in messages %}
+  <div
+    class="alert alert-success"
+    style="background-color: rgb(74, 179, 74); color: white"
+  >
+    {{ message }}
+  </div>
+  {% endfor %} {% endif %} {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>Please correct the following errors:</strong>
+    <ul>
+      {% for field in form %} {% for error in field.errors %}
+      <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+      {% endfor %} {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data" id="emiCalculatorForm">
+    {% csrf_token %}
+
+    <!-- Personal Details -->
+    <div class="form-section">
+      <div class="section-title">Personal Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          {{ form.fullname.label }} {{ form.fullname }}
+        </div>
+        <div class="form-group">{{ form.mobile.label }} {{ form.mobile }}</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">{{ form.email.label }} {{ form.email }}</div>
+        <div class="form-group">
+          {{ form.pancard.label }} {{ form.pancard }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.aadharcard.label }} {{ form.aadharcard }}
+      </div>
+    </div>
+
+    <!-- EMI Details -->
+    <div class="form-section">
+      <div class="section-title">EMI Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          {{ form.loanamount.label }} {{ form.loanamount }}
+        </div>
+        <div class="form-group">
+          {{ form.interest.label }} {{ form.interest }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          {{ form.loan_duration_type.label }} {{ form.loan_duration_type }}
+        </div>
+        <div class="form-group">
+          {{ form.loan_duration_value.label }} {{ form.loan_duration_value }}
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.finance_type.label }} {{ form.finance_type }}
+      </div>
+      <div class="form-group">
+        {{ form.insurance.label }} {{ form.insurance }}
+      </div>
+    </div>
+
+    <!-- Customer Bank Details -->
+    <div class="form-section">
+      <div class="section-title">Bank Account Details (Customer)</div>
+      <div class="form-row">
+        <div class="form-group">
+          {{ form.customername.label }} {{ form.customername }}
+        </div>
+        <div class="form-group">
+          {{ form.customeraccount.label }} {{ form.customeraccount }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">{{ form.ifsc.label }} {{ form.ifsc }}</div>
+        <div class="form-group">
+          {{ form.branchname.label }} {{ form.branchname }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Bank Details (Dynamic Dropdown + AJAX Autofill) -->
+    <div class="form-section">
+      <div class="section-title">Bank Account Details (Company)</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="companyAccountName">Bank Name</label>
+          <select id="companyAccountName" name="companyAccountName" required>
+            <option value="">Select Bank</option>
+            {% for bank in banks %}
+            <option value="{{ bank }}">{{ bank }}</option>
+            {% endfor %}
+          </select>
+          <input
+            type="hidden"
+            id="companyAccountNameHidden"
+            name="company_account_name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="companyIfscCode">Account No</label>
+          <input
+            type="text"
+            id="companyAccount"
+            name="companyAccount"
+            required
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="companyIfscCode">IFSC Code</label>
+          <input
+            type="text"
+            id="companyIfscCode"
+            name="companyIfscCode"
+            required
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="companyBranchName">Branch Name</label>
+          <input
+            type="text"
+            id="companyBranchName"
+            name="companyBranchName"
+            required
+            readonly
+          />
+        </div>
+        <!-- Hidden fields for POST -->
+        <input
+          type="hidden"
+          id="companyAccountHidden"
+          name="company_account_number"
+        />
+        <input
+          type="hidden"
+          id="companyIfscCodeHidden"
+          name="company_ifsc_code"
+        />
+        <input
+          type="hidden"
+          id="companyBranchNameHidden"
+          name="company_branch_name"
+        />
+      </div>
+    </div>
+
+    <!-- Document Upload -->
+    <div class="form-section">
+      <div class="section-title">Document Upload</div>
+      <div class="form-group">{{ form.photo.label }} {{ form.photo }}</div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-block">
+        Create Appointment Letter
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- AJAX Script for Bank Autofill -->
+<script>
+  document
+    .getElementById("companyAccountName")
+    .addEventListener("change", function () {
+      const bankName = this.value;
+      if (!bankName) return;
+
+      fetch(`/ajax/get-bank-details/?bank_name=${encodeURIComponent(bankName)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ifsc_code && data.branch_name) {
+            document.getElementById("companyAccount").value =
+              data.account_number;
+            document.getElementById("companyIfscCode").value = data.ifsc_code;
+            document.getElementById("companyBranchName").value =
+              data.branch_name;
+            // Set hidden fields for POST
+            document.getElementById("companyAccountNameHidden").value =
+              bankName;
+            document.getElementById("companyAccountHidden").value =
+              data.account_number;
+            document.getElementById("companyIfscCodeHidden").value =
+              data.ifsc_code;
+            document.getElementById("companyBranchNameHidden").value =
+              data.branch_name;
+          } else {
+            alert("❌ Bank details not found!");
+            document.getElementById("companyAccount").value = "";
+            document.getElementById("companyIfscCode").value = "";
+            document.getElementById("companyBranchName").value = "";
+            document.getElementById("companyAccountHidden").value = "";
+            document.getElementById("companyIfscCodeHidden").value = "";
+            document.getElementById("companyBranchNameHidden").value = "";
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching bank details:", error);
+        });
+    });
+</script>
+
+{% endblock %}

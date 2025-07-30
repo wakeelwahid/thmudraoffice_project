@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block content %}
+
+<form method="POST" id="bankForm">
+  {% csrf_token %}
+
+  <div class="form-section" style="margin-top: 20px">
+    <div
+      class="section-title"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div>Bank Account Details</div>
+      <a href="{% url "show_banks" %}"
+        type="button"
+        class="btn btn-block"
+        style="
+          color: green;
+          background-color: rgb(200, 201, 197);
+          width: max-content;text-decoration: none;
+        "
+      >
+        Show Bank
+  </a>
+    </div>
+    
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="id_account_name">Account Name</label>
+        <input type="text" id="id_account_name" name="account_name" required />
+      </div>
+      <div class="form-group">
+        <label for="id_account_number">Loan Account No.</label>
+        <input
+          type="text"
+          id="id_account_number"
+          name="account_number"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="id_ifsc_code">IFSC Code</label>
+        <input type="text" id="id_ifsc_code" name="ifsc_code" required />
+      </div>
+      <div class="form-group">
+        <label for="id_branch_name">Branch Name</label>
+        <input type="text" id="id_branch_name" name="branch_name" required />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-block">Add Bank</button>
+    {% if messages %}
+    <div class="messages" style="background-color: rgb(58, 225, 58); margin-top: 5px;">
+      {% for message in messages %}
+      <div class="alert alert-success" role="alert">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</form>
+
+{% endblock %}

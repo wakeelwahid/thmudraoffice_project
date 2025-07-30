@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pradhan Mantri MUDRA Yojana Invoice</title>
+    <style>
+      body {
+        /* font-family: Arial, sans-serif; */
+        /* line-height: 1.5; */
+        color: #000;
+        /* max-width: 800px; */
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+        /* font-weight: 500; */
+      }
+
+      .pinfo {
+        /* font-weight: 500; */
+        font-size: 20px;
+      }
+      img {
+        max-width: 300px;
+        height: 100px;
+      }
+
+      .header-section {
+        text-align: center;
+      }
+
+      hr {
+        border: 3px solid orange;
+        margin: 15px 0;
+      }
+
+      h2,
+      h3,
+      h4 {
+        margin: 10px 0;
+      }
+
+      p {
+        margin: 5px 0;
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .text-danger {
+        color: black;
+        font-size: 17px;
+      }
+      .text-danger1 {
+        color: #ed4153ff;
+       
+      }
+      .loanamout{
+       
+        font-weight: 600;
+      }
+
+      .text-secondary {
+        color: #dc3545;
+      }
+
+      .text-primary {
+        color: #007bff;
+      }
+
+      .text-success {
+        color: #28a745;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 15px 0;
+      }
+
+      th,
+      td {
+        border: 1px solid #000;
+        text-align: center;
+        padding: 5px;
+      }
+
+      .repayment_schedule th {
+        text-transform: uppercase;
+        background-color: yellow;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 5px;
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      .watermark {
+        position: fixed;
+        top: 50%;
+        left: 30%;
+        opacity: 0.2;
+        width: 80%;
+        height: 200px;
+        font-size: 120px;
+        color: white;
+        transform: translate(-20%, -50%);
+        background-size: contain;
+        pointer-events: none;
+        z-index: -1;
+        background-repeat: no-repeat;
+      }
+
+      .float-left {
+        float: left;
+        width: 50%;
+      }
+
+      .float-right {
+        float: right;
+        width: 40%;
+      }
+
+      .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .footer-images {
+        text-align: center;
+        margin-top: 50px;
+        width: 100%;
+        page-break-before: always;
+      }
+
+      .footer-image {
+        display: inline-block;
+        width: 22%;
+        margin-right: 2%;
+      }
+
+      .footer-image img {
+        width: 100%;
+      }
+
+      .page-break {
+        page-break-before: always;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="watermark"
+      style="background-image: url('{{ logo_path }}'); width: 900px;"
+    ></div>
+
+    <div id="invoice_section">
+      <div class="header-section">
+        <div class="logo">
+          <img src="{{ logo_path }}" />
+          <h3>{{ data.kyc_verification }}</h3>
+        </div>
+      </div>
+
+      <hr />
+
+      <div>
+        <h3 style="text-transform: uppercase; margin-bottom: 0px">
+          AN ISO 19001:2008 CERTIFICATES COMPANY
+        </h3>
+        <p style="margin-top: 1px">
+          Incorporated under the National Financial Corporation ACT 1956<br />
+          Address - 13rd Floor, Office No. - 218,219 & 222 Gokhale Plaza
+          Condominium Survey No 186/2/1A,<br />
+          CST, 3187, Chinchwad - Akurdi Link Road, Near Ramkrishana More,
+          Auditoriam, Pune Maharashtra
+        </p>
+      </div>
+
+      <div>
+        <h2 style="text-align: center">LOAN APPROVAL LETTER</h2>
+      </div>
+
+      <div>
+        <p
+          style="
+            font-weight: 500;
+            margin-bottom: 3px;
+            margin-top: 3px;
+            text-align: justify;
+
+            line-height: 24px;
+          "
+        >
+          Name: Mr/Mrs {{ data.fullname|default_if_none:"" }}
+        </p>
+        <p
+          style="
+            font-weight: 500;
+            margin-bottom: 5px;
+            margin-top: 0px;
+            text-align: justify;
+
+            line-height: 24px;
+          "
+        >
+          KYC Verification: {{ data.kyc_verification|default_if_none:"" }}
+        </p>
+        <p
+          style="
+            font-weight: 500;
+            margin-bottom: 5px;
+            margin-top: 0px;
+            text-align: justify;
+
+            line-height: 24px;
+          "
+        >
+          Loan Amount: Rs. {{ data.loan_amount|default_if_none:"" }}/-
+        </p>
+      </div>
+
+      <div class="clearfix">
+        <div class="float-left">
+          <h3 class="text-danger">
+            Subject : Loan Approval Letter of {{ data.title|default_if_none:"" }}
+          </h3>
+        </div>
+
+        <div class="float-right">
+          <img
+            src="{{ barcode_path }}"
+            style="max-width: 150px; height: 40px"
+          />
+          <p style="text-align: center; margin-top: 1px">
+            Date: {{ data.date|date:"d-m-Y" }}
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px">
+        <p style="text-align: justify; line-height: 30px">
+          Dear
+          <span style="text-transform: uppercase"
+            >{{ data.fullname|default_if_none:"" }}</span
+          >, <br />
+         We are pleased to inform you that your loan under the 
+          
+          <span class="text-danger1">" {{data.title}} "</span> has been approved. The sanctioned loan amount is <span class="loanamout"> ₹{{ data.loan_amount}}</span>
+          with a monthly EMI of
+          <span style="font-weight: 600"
+            >{{ data.emi|default_if_none:"" }}/Month</span
+          >
+          at the 
+          <span style="font-weight: 600"
+            >{{ data.interest_rate|default_if_none:"" }}%</span
+          >
+          reducing interest rate, funded through the N.R.I. Funding Scheme. <br />
+          To Process Further, you are required to submit a Refundable Insurance and Processing Charge of <span style="font-weight: 600">₹{{data.insurance_charge}}</span>. Once this amount is received, it will be the company's responsibility to hand over your full loan amount
+          
+          <span style="font-weight: 600"
+            >₹{{ data.loan_amount|default_if_none:"" }}.</span
+          > Our representative will be visiting your location shortly to complete the process.
+        </p>
+
+        <p>
+          Insurance and  Processing Charge Refund:-
+          <span style="font-weight: 600"
+            >{{ data.insurance_charge|default_if_none:"" }}</span
+          >
+        </p>
+      </div>
+
+      <div class="clearfix">
+        <div class="float-left">
+          <h2 class="pinfo">Bank Details:</h2>
+          <ul type="circle" style="text-align: justify; line-height: 30px">
+            <li>
+              Name:
+              <span style="margin-left: 10px"
+                >{{ data.fullname|default_if_none:"" }}</span
+              >
+            </li>
+            <li>
+              A/C No.:
+              <span style="margin-left: 10px"
+                >{{ data.account_number|default_if_none:"" }}</span
+              >
+            </li>
+            <li>
+              IFSC Code:
+              <span style="margin-left: 10px"
+                >{{ data.ifsc_code|default_if_none:"" }}</span
+              >
+            </li>
+            <li>
+              Branch Name:
+              <span style="margin-left: 10px"
+                >{{ data.branch_name|default_if_none:"" }}</span
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="float-right">
+          <h2 class="pinfo">EMI Calculator:</h2>
+          <ul type="circle" style="text-align: justify; line-height: 30px">
+            <li>Loan Amount: {{ data.loan_amount|default_if_none:"" }}/-</li>
+            <li>Interest: {{ data.interest_rate|default_if_none:"" }}%</li>
+            <li>Period: {{ data.period|default_if_none:"" }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="page-break">
+        <table style="page-break-inside: avoid">
+          <tr>
+            <th>
+              Principal Amount : {{ data.loan_amount|default_if_none:"" }}
+            </th>
+            <th>
+              Interest Payable : {{ data.interest_payable|default_if_none:"" }}
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              Total Payable : {{ data.total_payable|default_if_none:"" }}
+            </th>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h2 style="text-align: center">LOAN REPAYMENT SCHEDULE</h2>
+      </div>
+
+      <div>
+        <table>
+          <tr class="repayment_schedule">
+            <th>Month</th>
+            <th>Balance</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Payment</th>
+          </tr>
+          {% for row in data.repayment_schedule %}
+          <tr>
+            <td>{{ row.month }}</td>
+            <td>{{ row.balance }}</td>
+            <td>{{ row.principal }}</td>
+            <td>{{ row.interest }}</td>
+            <td>{{ row.payment }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <p>Please continue your Loan process without any hesitation.</p>
+      </div>
+
+      <div class="page-break">
+        <h2>Payment on this Account</h2>
+        <ul type="circle" style="text-align: justify; line-height: 30px">
+          <li>Name: {{ data.company_account_name }}</li>
+          <li>A/C No.: {{ data.company_account_number }}</li>
+          <li>IFSC Code: {{ data.company_ifsc_code }}</li>
+          <li>Branch Name: {{ data.company_branch_name }}</li>
+        </ul>
+      </div>
+
+      <div>
+        <p
+          style="
+            text-align: justify;
+
+            line-height: 30px;
+            color: red;
+            word-spacing: 24px;
+          "
+        >
+          Note:- Cash deposit not accepted by Company (Online Transaction Needed
+          for IMPS/NEFT/ RTGS/MOBILE BANKING/NET BANKING your Bank
+          Account/Transaction Verification).
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: blue; text-decoration: underline">
+          FOR CUSTOMERS PURPOSE ONLY
+        </h4>
+        <p>
+          In case you intend to prefer an appeal against the above information,
+          you may prefer your appeal within 30 days from the date of receipt of
+          this communication to the Appeliate Authority under Act whose address
+          is mentioned.
+        </p>
+        <p>We submit the above information and kind necessary action please.</p>
+      </div>
+
+      <div class="footer-images">
+        <div class="footer-image">
+          <img src="{{ sign1 }}" alt="Image 1" />
+        </div>
+        <div class="footer-image">
+          <img src="{{ sign2 }}" alt="Image 2" />
+        </div>
+        <div class="footer-image">
+          <img src="{{ sign3 }}" alt="Image 3" />
+        </div>
+        <div class="footer-image">
+          <img src="{{ sign4 }}" alt="Image 4" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

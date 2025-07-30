@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="listcontainer">
+        <h1>APPROVAL LETTER</h1>
+        
+        <div class="header-actions">
+            <h2>APPROVAL LETTER LIST</h2>
+              <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px;">
+        <a href="{% url "create_letter" %}" class="btn" style="text-align: center; text-decoration: none;">Create Approval Letter</a>
+        </div>
+    </div>
+            
+        </div>
+        
+        <table class="approval-list">
+            <thead>
+                
+                <tr>
+                    <th>S.NO.</th>
+                    <th>NAME</th>
+                    <th>MOBILE NO</th>
+                    
+                    <th>ACTION</th>
+                    <th>DOWNLOAD</th>
+                    <th>Edit</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for list in list%}
+                <tr>
+                    <td class="serial-no">{{forloop.counter}}</td>
+                    <td>{{list.fullname}}</td>
+                    <td>{{list.mobile}}</td>
+                    
+                    <td colspan="2">
+                        <form method="post" action="{% url 'download_pdf' list.pk %}" style="display: flex; align-items: center; gap: 10px;">
+                            {% csrf_token %}
+                            <select name="finance_type" required>
+                                <option value="mudra">Mudra Finance</option>
+                                <option value="kreditbee">Kredit Bee</option>
+                                <option value="indiabulls">IndiaBulls Dhani Finance</option>
+                            </select>
+                            <button type="submit" class="download-btn" style="margin-left: 10px;">
+                                <i class="fas fa-download"></i> 
+                            </button>
+                          
+                        </form>
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_letter' list.pk %}" class="download-btn" style="margin-left: 10px;">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+                {%endfor%}
+                <!-- Additional rows can be added here -->
+            </tbody>
+        </table>
+    </div>
+
+     <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Form submission
+        document.getElementById('emiCalculatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically calculate EMI and process the form
+            alert('Form submitted successfully!');
+            // You would add EMI calculation logic here
+        });
+    </script>
+{% endblock  %}

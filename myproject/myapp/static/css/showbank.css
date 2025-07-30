@@ -1,0 +1,59 @@
+/* bank.css */
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.alert {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.add-bank-btn {
+  color: green;
+  background-color: #c8c9c5;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.action-icons a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-size: 18px;
+}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+
+<h2>Bank Accounts</h2>
+
+{% if messages %} {% for message in messages %}
+<div class="alert alert-success" style="background-color: red; color: white; margin-bottom: 3px; width: max-content;">{{ message }}</div>
+{% endfor %} {% endif %}
+
+ <div
+      style=" margin-bottom: 5px;"
+     
+    >
+      
+      <a href="{% url "addbank" %}"
+        type="button"
+        class="btn btn-block"
+        style="
+          color: green;
+          background-color: rgb(200, 201, 197);
+          width: max-content; text-decoration: none;
+        "
+      >
+        Add Bank +
+  </a>
+    </div>
+<table
+  border="1"
+  cellpadding="10"
+  cellspacing="0"
+  style="width: 100%; text-align: left"
+>
+  <thead>
+    <tr>
+      <th>Account Name</th>
+      <th>Loan No</th>
+      <th>IFSC</th>
+      <th>Branch Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for bank in banks %}
+    <tr>
+      <td>{{ bank.account_name }}</td>
+      <td>{{ bank.account_number }}</td>
+      <td>{{ bank.ifsc_code }}</td>
+      <td>{{ bank.branch_name }}</td>
+      <td>
+        <a href="{% url 'edit_bank' bank.pk %}" title="Edit">✏️</a>
+        <a href="{% url 'delete_bank' bank.pk %}" title="Delete">🗑️</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">No bank details found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
