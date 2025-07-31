@@ -2,8 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.dashboard,name="dashboard"),
+    path('home',views.dashboard,name="dashboard"),
+    path('logout',views.logout_view, name='logout_view'),
   
+    path('',views.kreditbee_login,name="kreditbee_login"),
     path('approval-letter',views.create_letter,name="create_letter"),
     path('emi-calulator',views.emiCalculator,name="emiCalculator"),
     path('approvalletter-list',views.approvalletter,name="approvalletter"),

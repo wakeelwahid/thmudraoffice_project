@@ -21,7 +21,7 @@
 <body>
     <header>
         <div class="container header-container">
-            <div class="logo">EMI Calculator</div>
+            <div class="logo">Kredit Bee</div>
             <button class="mobile-menu-btn">☰</button>
             <nav class="nav-menu">
                 <ul>
@@ -30,6 +30,7 @@
                     <li><a href="#">Add Bank</a></li> {% endcomment %}
                     <li><a href="{% url "emiCalculator" %}">Loan Calculator</a></li>
                     <li><a href="{% url "addbank" %}">Add Bank</a></li>
+                    <li><a href="{% url "logout_view" %}" style="color: red;">Logout</a></li>
 
                 </ul>
             </nav>
@@ -38,6 +39,5 @@
      <main class="container">
         {% block content %}{% endblock %}
     </main>
-
     </body>
 </html>

@@ -2,6 +2,7 @@
 from .forms import PersonaldetailsForm
 from .models import CreateApprovalLetter
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
 
 def edit_letter(request, pk):
     letter = get_object_or_404(CreateApprovalLetter, pk=pk)
@@ -50,6 +51,25 @@ def create_letter(request):
     return render(request, 'home.html', {'form': form, 'banks': banks})
 
 
+
+def kreditbee_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return render(request, 'login.html')  # Stay on login page with message
+
+    return render(request, 'login.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('kreditbee_login')
 
 # ------------------------
 # 2. EMI Calculator Page
