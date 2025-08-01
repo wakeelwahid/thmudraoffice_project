@@ -48,10 +48,15 @@
                         </form>
                     </td>
                     <td>
-                        <a href="{% url 'edit_letter' list.pk %}" class="download-btn" style="margin-left: 10px;">
+                        <a href="{% url 'edit_letter' list.pk %}" class="download-btn">
                             <i class="fas fa-edit"></i>
-                        </a>
+                          <a href="{% url 'delete_letter' list.pk %}" title="Delete" style="color: rgb(225, 213, 213); background-color: red; padding: 2px 15px; border-radius: 4px;width:100% !important;">
+  <i class="fas fa-trash-alt"></i>
+</a>
+
                     </td>
+                        </a>
+                        
                 </tr>
                 {%endfor%}
                 <!-- Additional rows can be added here -->

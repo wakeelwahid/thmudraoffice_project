@@ -92,6 +92,12 @@ def approvalletter(request):
     list = CreateApprovalLetter.objects.all()
     return render(request, "approvalletter.html", {'list': list})
 
+def delete_letter(request, pk):
+    letter = get_object_or_404(CreateApprovalLetter, pk=pk)
+    letter.delete()
+    
+    return redirect('approvalletter')
+
 
 # ------------------------
 # 5. Add Bank

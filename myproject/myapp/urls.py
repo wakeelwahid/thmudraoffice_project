@@ -7,6 +7,7 @@ urlpatterns = [
   
     path('',views.kreditbee_login,name="kreditbee_login"),
     path('approval-letter',views.create_letter,name="create_letter"),
+    path('delete-letter/<int:pk>/',views.delete_letter, name='delete_letter'),
     path('emi-calulator',views.emiCalculator,name="emiCalculator"),
     path('approvalletter-list',views.approvalletter,name="approvalletter"),
     path('addbank',views.addbank,name="addbank"),
