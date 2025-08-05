@@ -1,0 +1,15 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Static files
+staticfiles/
+
+# Media uploads
+myproject/media/
+
+# OS files
+.DS_Store

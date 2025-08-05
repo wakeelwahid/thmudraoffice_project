@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wv=$@ze2l)3n4x=%v=mmccl7@b*klrbb9^f(yi^)9^&zomzdue
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['82.29.166.22', 'letter.themudra.online', '127.0.0.1']
 
 
 # Application definition
@@ -71,20 +71,18 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.2/ref/settings/#database
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "kreditbee",
-        "USER": "root",
-        "PASSWORD": "Wakeel@321",
-        "HOST": "localhost",
-        "PORT":"3306",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mudra_db',
+        'USER': 'mudra_user',
+        'PASSWORD': 'StrongPassword123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -119,16 +117,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
